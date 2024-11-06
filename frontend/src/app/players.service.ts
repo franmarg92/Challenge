@@ -10,7 +10,7 @@ export class PlayerService {
 
   constructor(private http: HttpClient) {}
 
-  getPlayers(limit: number = 9, page: number = 1): Observable<any[]> {
+  getPlayers(limit: number = 16, page: number = 1): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}?limit=${limit}&page=${page}`);
   }
 

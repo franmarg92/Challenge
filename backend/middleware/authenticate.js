@@ -1,4 +1,4 @@
-// middleware/authenticate.js
+
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.SECRET_KEY || 'tu_clave_secreta';
 
@@ -13,7 +13,7 @@ const authenticate = (req, res, next) => {
         if (err) {
             return res.status(401).json({ error: 'Token inválido' });
         }
-        req.userId = decoded.id; // Guardar el ID del usuario en la solicitud
+        req.userId = decoded.id; 
         next();
     });
 };

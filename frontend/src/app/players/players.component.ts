@@ -10,7 +10,7 @@ export class PlayersComponent implements OnInit {
   players: any[] = [];
   loading: boolean = true;
   currentPage: number = 1;
-  limit: number = 9; // Mostrar 9 jugadores por página
+  limit: number = 21; 
 
   constructor(private playerService: PlayerService) {}
 

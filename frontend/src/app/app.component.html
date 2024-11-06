@@ -1,9 +1,31 @@
-<h1>Bienvenido a fifa manager</h1>
-<nav>
-  <ul>
-    <li><a routerLink="home">Home</a></li>
-    <li><a routerLink="login">Login</a></li>
-    <li><a routerLink="register">Register</a></li>
-  </ul>
-</nav>
-<router-outlet></router-outlet>
+<!-- Navbar -->
+<header>
+  <nav class="navbar">
+    <ul>
+      <li><a routerLink="home">Inicio</a></li>
+      <li><a routerLink="login">Login</a></li>
+      <li><a routerLink="register">Registro</a></li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Jugadores</a>
+        <div class="dropdown-content">
+          <a routerLink="players">Todos los jugadores</a>
+          <a routerLink="edit-player">Editar jugador</a>
+          <a routerLink="create-player">Crear jugador</a>
+          <a routerLink="player-detail">Jugador específico</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Main Content -->
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Footer -->
+<footer class="custom-footer">
+  <div class="footer-content">
+    <p>&copy; 2024 FIFA Manager. Todos los derechos reservados.</p>
+  </div>
+</footer>

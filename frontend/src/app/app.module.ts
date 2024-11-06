@@ -9,6 +9,12 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { PlayersComponent } from './players/players.component';
+import { PlayerDetailComponent } from './player-detail/player-detail.component';
+import { EditPlayerComponent } from './edit-player/edit-player.component';
+
+import { CreatePlayerComponent } from './create-player/create-player.component';
+
+
 
 
 @NgModule({
@@ -18,6 +24,10 @@ import { PlayersComponent } from './players/players.component';
     RegisterComponent,
     HomeComponent,
     PlayersComponent,
+    PlayerDetailComponent,
+    EditPlayerComponent,
+    CreatePlayerComponent,
+    
    
   ],
   imports: [
