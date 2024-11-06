@@ -1,20 +1,38 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
+const { Op } = require('sequelize'); // Operadores para filtrado
 const { Player } = require('../models/playerModels');
 
 const router = express.Router();
 
-// Obtener todos los jugadores con paginación
+// Obtener todos los jugadores con paginación y filtrado
 router.get('/', async (req, res) => {
-    const limit = parseInt(req.query.limit) || 10; // Número de resultados por página
+    const limit = parseInt(req.query.limit) || 16; // Número de resultados por página
     const page = parseInt(req.query.page) || 1; // Número de la página actual
+    const { name, club, position } = req.query; // Filtros de búsqueda
 
     try {
         const offset = (page - 1) * limit; // Calcular el desplazamiento
+
+        // Condiciones para el filtrado
+        const whereClause = {};
+        if (name) {
+            whereClause.long_name = { [Op.like]: `%${name}%` };
+        }
+        if (club) {
+            whereClause.club_name = { [Op.like]: `%${club}%` };
+        }
+        if (position) {
+            whereClause.player_positions = { [Op.like]: `%${position}%` };
+        }
+
+        // Búsqueda con filtros y paginación
         const players = await Player.findAll({
+            where: whereClause,
             limit: limit,
-            offset: offset
+            offset: offset,
         });
+
         res.json(players);
     } catch (error) {
         console.error(error); // Registrar el error
@@ -41,7 +59,6 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ error: 'Error al obtener el jugador' });
     }
 });
-
 
 // Actualizar información de un jugador
 router.put('/:id', async (req, res) => {
