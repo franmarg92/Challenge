@@ -1,1 +1,137 @@
-<p>edit-player works!</p>
+<div class="edit-player-form">
+  <h3>Editar Jugador</h3>
+  <form (ngSubmit)="savePlayer()">
+    
+    <div>
+      <label for="fifa_version">FIFA Version:</label>
+      <input type="text" id="fifa_version" [(ngModel)]="player.fifa_version" name="fifa_version">
+    </div>
+
+    <div>
+      <label for="fifa_update">FIFA Update:</label>
+      <input type="text" id="fifa_update" [(ngModel)]="player.fifa_update" name="fifa_update">
+    </div>
+
+    <div>
+      <label for="player_face_url">Player Face URL:</label>
+      <input type="text" id="player_face_url" [(ngModel)]="player.player_face_url" name="player_face_url">
+    </div>
+
+    <div>
+      <label for="long_name">Nombre Completo:</label>
+      <input type="text" id="long_name" [(ngModel)]="player.long_name" name="long_name">
+    </div>
+
+    <div>
+      <label for="player_positions">Posiciones:</label>
+      <input type="text" id="player_positions" [(ngModel)]="player.player_positions" name="player_positions">
+    </div>
+
+    <div>
+      <label for="club_name">Club:</label>
+      <input type="text" id="club_name" [(ngModel)]="player.club_name" name="club_name">
+    </div>
+
+    <div>
+      <label for="nationality_name">Nacionalidad:</label>
+      <input type="text" id="nationality_name" [(ngModel)]="player.nationality_name" name="nationality_name">
+    </div>
+
+    <div>
+      <label for="overall">Overall:</label>
+      <input type="number" id="overall" [(ngModel)]="player.overall" name="overall">
+    </div>
+
+    <div>
+      <label for="potential">Potencial:</label>
+      <input type="number" id="potential" [(ngModel)]="player.potential" name="potential">
+    </div>
+
+    <div>
+      <label for="value_eur">Valor (€):</label>
+      <input type="number" id="value_eur" [(ngModel)]="player.value_eur" name="value_eur">
+    </div>
+
+    <div>
+      <label for="wage_eur">Salario (€):</label>
+      <input type="number" id="wage_eur" [(ngModel)]="player.wage_eur" name="wage_eur">
+    </div>
+
+    <div>
+      <label for="age">Edad:</label>
+      <input type="number" id="age" [(ngModel)]="player.age" name="age">
+    </div>
+
+    <div>
+      <label for="height_cm">Altura (cm):</label>
+      <input type="number" id="height_cm" [(ngModel)]="player.height_cm" name="height_cm">
+    </div>
+
+    <div>
+      <label for="weight_kg">Peso (kg):</label>
+      <input type="number" id="weight_kg" [(ngModel)]="player.weight_kg" name="weight_kg">
+    </div>
+
+    <div>
+      <label for="preferred_foot">Pierna Preferida:</label>
+      <input type="text" id="preferred_foot" [(ngModel)]="player.preferred_foot" name="preferred_foot">
+    </div>
+
+    <div>
+      <label for="weak_foot">Pierna Débil:</label>
+      <input type="number" id="weak_foot" [(ngModel)]="player.weak_foot" name="weak_foot">
+    </div>
+
+    <div>
+      <label for="skill_moves">Habilidad de Movimientos:</label>
+      <input type="number" id="skill_moves" [(ngModel)]="player.skill_moves" name="skill_moves">
+    </div>
+
+    <div>
+      <label for="international_reputation">Reputación Internacional:</label>
+      <input type="number" id="international_reputation" [(ngModel)]="player.international_reputation" name="international_reputation">
+    </div>
+
+    <div>
+      <label for="work_rate">Rendimiento:</label>
+      <input type="text" id="work_rate" [(ngModel)]="player.work_rate" name="work_rate">
+    </div>
+
+    <div>
+      <label for="body_type">Tipo de Cuerpo:</label>
+      <input type="text" id="body_type" [(ngModel)]="player.body_type" name="body_type">
+    </div>
+
+    <div>
+      <label for="pace">Velocidad:</label>
+      <input type="number" id="pace" [(ngModel)]="player.pace" name="pace">
+    </div>
+
+    <div>
+      <label for="shooting">Disparo:</label>
+      <input type="number" id="shooting" [(ngModel)]="player.shooting" name="shooting">
+    </div>
+
+    <div>
+      <label for="passing">Pase:</label>
+      <input type="number" id="passing" [(ngModel)]="player.passing" name="passing">
+    </div>
+
+    <div>
+      <label for="dribbling">Dribbling:</label>
+      <input type="number" id="dribbling" [(ngModel)]="player.dribbling" name="dribbling">
+    </div>
+
+    <div>
+      <label for="defending">Defensa:</label>
+      <input type="number" id="defending" [(ngModel)]="player.defending" name="defending">
+    </div>
+
+    <div>
+      <label for="physic">Físico:</label>
+      <input type="number" id="physic" [(ngModel)]="player.physic" name="physic">
+    </div>
+
+    <button type="submit">Guardar Cambios</button>
+  </form>
+</div>

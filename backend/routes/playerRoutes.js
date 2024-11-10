@@ -79,7 +79,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Crear un nuevo jugador con validación
-router.post(
+/* router.post(
     '/',
     [
         check('long_name').notEmpty().withMessage('El nombre del jugador es requerido'),
@@ -101,5 +101,75 @@ router.post(
         }
     }
 );
+ */
+
+router.post('/create', async (req, res) => {
+    try {
+        const {
+            fifa_version,
+            fifa_update,
+            player_face_url,
+            long_name,
+            player_positions,
+            club_name,
+            nationality_name,
+            overall,
+            potential,
+            value_eur,
+            wage_eur,
+            age,
+            height_cm,
+            weight_kg,
+            preferred_foot,
+            weak_foot,
+            skill_moves,
+            international_reputation,
+            work_rate,
+            body_type,
+            pace,
+            shooting,
+            passing,
+            dribbling,
+            defending,
+            physic
+        } = req.body;
+
+        // Crear el nuevo jugador
+        const newPlayer = await Player.create({
+            fifa_version,
+            fifa_update,
+            player_face_url,
+            long_name,
+            player_positions,
+            club_name,
+            nationality_name,
+            overall,
+            potential,
+            value_eur,
+            wage_eur,
+            age,
+            height_cm,
+            weight_kg,
+            preferred_foot,
+            weak_foot,
+            skill_moves,
+            international_reputation,
+            work_rate,
+            body_type,
+            pace,
+            shooting,
+            passing,
+            dribbling,
+            defending,
+            physic
+        });
+
+        res.status(201).json({ message: 'Jugador creado exitosamente', player: newPlayer });
+    } catch (error) {
+        console.error(error); // Imprimir el error en la consola
+        res.status(500).json({ message: 'Error al crear el jugador', error });
+    }
+});
+
 
 module.exports = router;

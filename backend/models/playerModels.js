@@ -29,94 +29,117 @@ const Player = sequelize.define('Player', {
     },
     club_name: {
         type: DataTypes.STRING,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     nationality_name: {
         type: DataTypes.STRING,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     overall: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            min: 1,
+            max: 100
+        }
     },
     potential: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            min: 1,
+            max: 100
+        }
     },
     value_eur: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     wage_eur: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     age: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            min: 16,
+            max: 40
+        }
     },
     height_cm: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     weight_kg: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     preferred_foot: {
         type: DataTypes.STRING,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     weak_foot: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true,
+        validate: {
+            min: 1,
+            max: 5
+        }
     },
     skill_moves: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true,
+        validate: {
+            min: 1,
+            max: 5
+        }
     },
     international_reputation: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true,
+        validate: {
+            min: 1,
+            max: 5
+        }
     },
     work_rate: {
         type: DataTypes.STRING,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     body_type: {
         type: DataTypes.STRING,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     pace: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     shooting: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     passing: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     dribbling: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     defending: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
     physic: {
         type: DataTypes.INTEGER,
-        allowNull: true // Ajustado a true ya que permite NULL
+        allowNull: true
     },
-    // Continúa agregando todos los campos restantes de la tabla aquí...
 }, {
     sequelize,
     modelName: 'Player',
     tableName: 'players',
-    timestamps: false // O true si usas timestamps
+    timestamps: false // Cambiar a true si usas createdAt y updatedAt
 });
 
 module.exports = { Player };

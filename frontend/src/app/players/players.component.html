@@ -1,34 +1,76 @@
 <!-- Mensaje de carga -->
-<div *ngIf="loading">Cargando jugadores...</div>
+<div *ngIf="loading" class="loading-message">Cargando jugadores...</div>
 
-
-
+<!-- Mostrar jugadores o mensaje de no hay jugadores -->
 <div *ngIf="!loading">
-  <!-- Si hay jugadores, mostrar los resultados -->
-  
   <div *ngIf="players.length > 0; else noPlayers">
-    <div class="players-container" >
-        <div *ngFor="let player of players">
-          <div class="player-card">
-            <img [src]="player.player_face_url" alt="{{ player.long_name }}" class="player-image">
-            <div class="player-info">
-              <strong>{{ player.long_name }}</strong> - {{ player.player_positions }}<br>
-              Club: {{ player.club_name }} | Edad: {{ player.age }} | Overall: {{ player.overall }}
-            </div>
+    <div class="players-container">
+      <div *ngFor="let player of players" (click)="selectPlayer(player)">
+        <div class="player-card">
+          <img [src]="player.player_face_url" alt="{{ player.long_name }}" class="player-image">
+          <div class="player-info">
+            <strong>{{ player.long_name }}</strong> - {{ player.player_positions }}<br>
+            Club: {{ player.club_name }} | Edad: {{ player.age }} | Overall: {{ player.overall }}
           </div>
         </div>
+      </div>
     </div>
   </div>
 
   <!-- Si no hay jugadores, mostrar mensaje -->
   <ng-template #noPlayers>
-    <div>No hay jugadores disponibles.</div>
+    <div class="no-players">No hay jugadores disponibles.</div>
   </ng-template>
 
-  <!-- Controles de paginación -->
+  <!-- Paginación -->
   <div class="pagination-controls">
     <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
     <span>Página {{ currentPage }}</span>
     <button (click)="nextPage()">Siguiente</button>
   </div>
+
+  <!-- Vista ampliada del jugador -->
+<div *ngIf="selectedPlayer" class="player-detail-modal">
+  
+  <!-- Botón para cerrar la vista -->
+  <button (click)="deselectPlayer()">Cerrar</button>
+
+  <h3>Detalles del Jugador</h3>
+  <p><strong>FIFA Version:</strong> {{ selectedPlayer.fifa_version }}</p>
+<p><strong>FIFA Update:</strong> {{ selectedPlayer.fifa_update }}</p>
+<img [src]="selectedPlayer.player_face_url" alt="{{ selectedPlayer.long_name }}" class="player-image">
+
+<p><strong>Nombre Completo:</strong> {{ selectedPlayer.long_name }}</p>
+<p><strong>Posiciones:</strong> {{ selectedPlayer.player_positions }}</p>
+<p><strong>Club:</strong> {{ selectedPlayer.club_name }}</p>
+<p><strong>Nacionalidad:</strong> {{ selectedPlayer.nationality_name }}</p>
+<p><strong>Overall:</strong> {{ selectedPlayer.overall }}</p>
+<p><strong>Potencial:</strong> {{ selectedPlayer.potential }}</p>
+<p><strong>Valor:</strong> {{ selectedPlayer.value_eur | currency:'EUR' }}</p>
+<p><strong>Salario:</strong> {{ selectedPlayer.wage_eur | currency:'EUR' }}</p>
+<p><strong>Edad:</strong> {{ selectedPlayer.age }}</p>
+<p><strong>Altura:</strong> {{ selectedPlayer.height_cm }} cm</p>
+<p><strong>Peso:</strong> {{ selectedPlayer.weight_kg }} kg</p>
+<p><strong>Pierna Preferida:</strong> {{ selectedPlayer.preferred_foot }}</p>
+<p><strong>Pierna Débil:</strong> {{ selectedPlayer.weak_foot }}</p>
+<p><strong>Habilidad de Movimientos:</strong> {{ selectedPlayer.skill_moves }}</p>
+<p><strong>Reputación Internacional:</strong> {{ selectedPlayer.international_reputation }}</p>
+<p><strong>Rendimiento:</strong> {{ selectedPlayer.work_rate }}</p>
+<p><strong>Tipo de Cuerpo:</strong> {{ selectedPlayer.body_type }}</p>
+
+<p><strong>Velocidad:</strong> {{ selectedPlayer.pace }}</p>
+<p><strong>Disparo:</strong> {{ selectedPlayer.shooting }}</p>
+<p><strong>Pase:</strong> {{ selectedPlayer.passing }}</p>
+<p><strong>Dribbling:</strong> {{ selectedPlayer.dribbling }}</p>
+<p><strong>Defensa:</strong> {{ selectedPlayer.defending }}</p>
+<p><strong>Físico:</strong> {{ selectedPlayer.physic }}</p>
+
+  
+  <!-- Botón de edición -->
+  <button (click)="editPlayer(selectedPlayer.id)">Editar</button>
+  
 </div>
+
+</div>
+
+

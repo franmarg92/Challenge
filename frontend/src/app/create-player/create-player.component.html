@@ -1,1 +1,22 @@
-<p>create-player works!</p>
+<div class="create-player-container">
+    <h2>Crear Jugador</h2>
+  
+    <form [formGroup]="playerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group" *ngFor="let field of formFields">
+        <label [for]="field.name">{{ field.label }}</label>
+        <input [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder" />
+        <div *ngIf="playerForm.get(field.name)?.touched && playerForm.get(field.name)?.invalid">
+          <small *ngIf="playerForm.get(field.name)?.hasError('required')">Este campo es obligatorio</small>
+          <small *ngIf="playerForm.get(field.name)?.hasError('min')">Debe ser mayor a 16</small>
+          <small *ngIf="playerForm.get(field.name)?.hasError('max')">Valor máximo excedido</small>
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="!playerForm.valid">Crear Jugador</button>
+    </form>
+  
+    <div *ngIf="message" class="success-message">
+      {{ message }}
+    </div>
+  </div>
+  

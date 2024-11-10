@@ -31,4 +31,15 @@ getPlayersByName(playerName: string): Observable<any[]> {
 
 
 
+  createPlayer(playerData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, playerData);
+  }
+
+
+
+updatePlayer(id: number, playerData: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/${id}`, playerData);
 }
+}
+
+

@@ -1,0 +1,66 @@
+.search-player-container {
+    max-width: 500px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    height: 80vh; 
+    overflow-y: auto; 
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+  }
+  
+  .player-details {
+    margin-top: 20px;
+  }
+  
+  .player-details p {
+    margin: 5px 0;
+  }
+  
+  .error-message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e74c3c;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+  }
+  

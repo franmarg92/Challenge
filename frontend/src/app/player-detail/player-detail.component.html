@@ -1,1 +1,48 @@
-<p>player-detail works!</p>
+<div class="search-player-container">
+    <h2>Buscar Jugador por ID</h2>
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <div class="form-group">
+        <label for="playerId">ID del Jugador</label>
+        <input id="playerId" formControlName="playerId" type="number" placeholder="Ingrese el ID del Jugador" />
+      </div>
+      <button type="submit" [disabled]="!searchForm.valid">Buscar Jugador</button>
+    </form>
+  
+    <!-- Mostrar los detalles del jugador si se ha encontrado -->
+    <div *ngIf="player" class="player-details">
+      <h3>Detalles del Jugador</h3>
+<p><strong>FIFA Version:</strong> {{ player.fifa_version }}</p>
+<p><strong>FIFA Update:</strong> {{ player.fifa_update }}</p>
+<img [src]="player.player_face_url" alt="{{ player.long_name }}" class="player-image">
+<p><strong>Nombre Completo:</strong> {{ player.long_name }}</p>
+<p><strong>Posiciones:</strong> {{ player.player_positions }}</p>
+<p><strong>Club:</strong> {{ player.club_name }}</p>
+<p><strong>Nacionalidad:</strong> {{ player.nationality_name }}</p>
+<p><strong>Overall:</strong> {{ player.overall }}</p>
+<p><strong>Potencial:</strong> {{ player.potential }}</p>
+<p><strong>Valor:</strong> {{ player.value_eur | currency:'EUR' }}</p>
+<p><strong>Salario:</strong> {{ player.wage_eur | currency:'EUR' }}</p>
+<p><strong>Edad:</strong> {{ player.age }}</p>
+<p><strong>Altura:</strong> {{ player.height_cm }} cm</p>
+<p><strong>Peso:</strong> {{ player.weight_kg }} kg</p>
+<p><strong>Pierna Preferida:</strong> {{ player.preferred_foot }}</p>
+<p><strong>Pierna Débil:</strong> {{ player.weak_foot }}</p>
+<p><strong>Habilidad de Movimientos:</strong> {{ player.skill_moves }}</p>
+<p><strong>Reputación Internacional:</strong> {{ player.international_reputation }}</p>
+<p><strong>Rendimiento:</strong> {{ player.work_rate }}</p>
+<p><strong>Tipo de Cuerpo:</strong> {{ player.body_type }}</p>
+<p><strong>Velocidad:</strong> {{ player.pace }}</p>
+<p><strong>Disparo:</strong> {{ player.shooting }}</p>
+<p><strong>Pase:</strong> {{ player.passing }}</p>
+<p><strong>Dribbling:</strong> {{ player.dribbling }}</p>
+<p><strong>Defensa:</strong> {{ player.defending }}</p>
+<p><strong>Físico:</strong> {{ player.physic }}</p>
+
+      <!-- Puedes agregar más campos aquí según sea necesario -->
+    </div>
+  
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
+  

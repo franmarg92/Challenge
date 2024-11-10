@@ -10,9 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { PlayersComponent } from './players/players.component';
 import { PlayerDetailComponent } from './player-detail/player-detail.component';
-import { EditPlayerComponent } from './edit-player/edit-player.component';
-
+import { EditPlayerComponent } from './edit-player/edit-player.component'; 
 import { CreatePlayerComponent } from './create-player/create-player.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -27,15 +27,15 @@ import { CreatePlayerComponent } from './create-player/create-player.component';
     PlayerDetailComponent,
     EditPlayerComponent,
     CreatePlayerComponent,
-    
-   
   ],
   imports: [
-    
-    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    NgApexchartsModule  
+   
+     
   ],
   providers: [
     provideClientHydration(),
@@ -44,3 +44,4 @@ import { CreatePlayerComponent } from './create-player/create-player.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

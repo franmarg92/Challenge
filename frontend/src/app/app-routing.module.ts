@@ -33,6 +33,9 @@ const routes: Routes = [
   },
   {
     path: 'players', component:PlayersComponent
+  },
+  { 
+    path: 'edit-player/:id', component: EditPlayerComponent
   }
 ];
 
