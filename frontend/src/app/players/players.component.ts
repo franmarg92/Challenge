@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerService } from '../players.service';
-import { Router } from '@angular/router'; // Asegúrate de importar el Router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-players',
@@ -9,12 +9,19 @@ import { Router } from '@angular/router'; // Asegúrate de importar el Router
 })
 export class PlayersComponent implements OnInit {
   players: any[] = [];
+  filteredPlayers: any[] = [];
   loading: boolean = true;
   currentPage: number = 1;
-  limit: number = 21; 
-  selectedPlayer: any = null;  // Jugador seleccionado para ver detalles
+  limit: number = 21;
+  selectedPlayer: any = null;
+  searchTerm: string = ''; // Para la búsqueda
+  selectedClub: string = ''; // Filtro de club
+  selectedPosition: string = ''; // Filtro de posición
+  
+  clubs: string[] = []; // Lista de clubes disponibles para el filtro
+  positions: string[] = []; // Lista de posiciones disponibles para el filtro
 
-  constructor(private playerService: PlayerService, private router: Router) {} // Inyecta el Router
+  constructor(private playerService: PlayerService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadPlayers();
@@ -26,12 +33,28 @@ export class PlayersComponent implements OnInit {
       next: (data) => {
         console.log('Jugadores cargados:', data);  
         this.players = data;
+        this.filteredPlayers = this.filterPlayers(data); 
         this.loading = false;
+
+        
+        this.clubs = [...new Set(data.map(player => player.club_name))];
+        this.positions = [...new Set(data.map(player => player.player_positions))];
       },
       error: (err) => {
         console.error('Error al cargar los jugadores', err);
         this.loading = false;
       }
+    });
+  }
+
+  filterPlayers(players: any[]): any[] {
+    return players.filter(player => {
+      return (
+       
+        (this.searchTerm ? player.long_name.toLowerCase().includes(this.searchTerm.toLowerCase()) : true) &&
+        (this.selectedClub ? player.club_name === this.selectedClub : true) &&
+        (this.selectedPosition ? player.player_positions.includes(this.selectedPosition) : true)
+      );
     });
   }
 
@@ -47,18 +70,17 @@ export class PlayersComponent implements OnInit {
     this.loadPlayers();
   }
 
-  // Función para seleccionar un jugador
   selectPlayer(player: any): void {
     this.selectedPlayer = player;
   }
 
-  // Función para cerrar la vista de detalle
   deselectPlayer(): void {
     this.selectedPlayer = null;
   }
 
-  // Redirige al componente de edición
+  
+ 
   editPlayer(playerId: number): void {
-    this.router.navigate(['/edit-player', playerId]); // Redirige al componente de edición
+    this.router.navigate(['/edit-player', playerId]);
   }
 }

@@ -1,11 +1,39 @@
+<!-- Barra de búsqueda -->
+<div class="search-bar">
+  <input 
+    type="text" 
+    [(ngModel)]="searchTerm" 
+    (ngModelChange)="filteredPlayers = filterPlayers(players)" 
+    placeholder="Buscar jugadores..." 
+  />
+</div>
+
+<!-- Filtro de Club -->
+<div class="filter">
+  <label for="club">Filtrar por Club:</label>
+  <select id="club" [(ngModel)]="selectedClub" (change)="filteredPlayers = filterPlayers(players)">
+    <option value="">Todos los Clubes</option>
+    <option *ngFor="let club of clubs" [value]="club">{{ club }}</option>
+  </select>
+</div>
+
+<!-- Filtro de Posición -->
+<div class="filter">
+  <label for="position">Filtrar por Posición:</label>
+  <select id="position" [(ngModel)]="selectedPosition" (change)="filteredPlayers = filterPlayers(players)">
+    <option value="">Todas las Posiciones</option>
+    <option *ngFor="let position of positions" [value]="position">{{ position }}</option>
+  </select>
+</div>
+
 <!-- Mensaje de carga -->
 <div *ngIf="loading" class="loading-message">Cargando jugadores...</div>
 
 <!-- Mostrar jugadores o mensaje de no hay jugadores -->
 <div *ngIf="!loading">
-  <div *ngIf="players.length > 0; else noPlayers">
+  <div *ngIf="filteredPlayers.length > 0; else noPlayers">
     <div class="players-container">
-      <div *ngFor="let player of players" (click)="selectPlayer(player)">
+      <div *ngFor="let player of filteredPlayers" (click)="selectPlayer(player)">
         <div class="player-card">
           <img [src]="player.player_face_url" alt="{{ player.long_name }}" class="player-image">
           <div class="player-info">
@@ -30,47 +58,42 @@
   </div>
 
   <!-- Vista ampliada del jugador -->
-<div *ngIf="selectedPlayer" class="player-detail-modal">
-  
-  <!-- Botón para cerrar la vista -->
-  <button (click)="deselectPlayer()">Cerrar</button>
+  <div *ngIf="selectedPlayer" class="player-detail-modal">
+    <!-- Botón para cerrar la vista -->
+    <button class="close-btn" (click)="deselectPlayer()">Cerrar</button>
+    <h3>Detalles del Jugador</h3>
+    <p><strong>FIFA Version:</strong> {{ selectedPlayer.fifa_version }}</p>
+    <p><strong>FIFA Update:</strong> {{ selectedPlayer.fifa_update }}</p>
+    <img [src]="selectedPlayer.player_face_url" alt="{{ selectedPlayer.long_name }}" class="player-image">
 
-  <h3>Detalles del Jugador</h3>
-  <p><strong>FIFA Version:</strong> {{ selectedPlayer.fifa_version }}</p>
-<p><strong>FIFA Update:</strong> {{ selectedPlayer.fifa_update }}</p>
-<img [src]="selectedPlayer.player_face_url" alt="{{ selectedPlayer.long_name }}" class="player-image">
+    <p><strong>Nombre Completo:</strong> {{ selectedPlayer.long_name }}</p>
+    <p><strong>Posiciones:</strong> {{ selectedPlayer.player_positions }}</p>
+    <p><strong>Club:</strong> {{ selectedPlayer.club_name }}</p>
+    <p><strong>Nacionalidad:</strong> {{ selectedPlayer.nationality_name }}</p>
+    <p><strong>Overall:</strong> {{ selectedPlayer.overall }}</p>
+    <p><strong>Potencial:</strong> {{ selectedPlayer.potential }}</p>
+    <p><strong>Valor:</strong> {{ selectedPlayer.value_eur | currency:'EUR' }}</p>
+    <p><strong>Salario:</strong> {{ selectedPlayer.wage_eur | currency:'EUR' }}</p>
+    <p><strong>Edad:</strong> {{ selectedPlayer.age }}</p>
+    <p><strong>Altura:</strong> {{ selectedPlayer.height_cm }} cm</p>
+    <p><strong>Peso:</strong> {{ selectedPlayer.weight_kg }} kg</p>
+    <p><strong>Pierna Preferida:</strong> {{ selectedPlayer.preferred_foot }}</p>
+    <p><strong>Pierna Débil:</strong> {{ selectedPlayer.weak_foot }}</p>
+    <p><strong>Habilidad de Movimientos:</strong> {{ selectedPlayer.skill_moves }}</p>
+    <p><strong>Reputación Internacional:</strong> {{ selectedPlayer.international_reputation }}</p>
+    <p><strong>Rendimiento:</strong> {{ selectedPlayer.work_rate }}</p>
+    <p><strong>Tipo de Cuerpo:</strong> {{ selectedPlayer.body_type }}</p>
 
-<p><strong>Nombre Completo:</strong> {{ selectedPlayer.long_name }}</p>
-<p><strong>Posiciones:</strong> {{ selectedPlayer.player_positions }}</p>
-<p><strong>Club:</strong> {{ selectedPlayer.club_name }}</p>
-<p><strong>Nacionalidad:</strong> {{ selectedPlayer.nationality_name }}</p>
-<p><strong>Overall:</strong> {{ selectedPlayer.overall }}</p>
-<p><strong>Potencial:</strong> {{ selectedPlayer.potential }}</p>
-<p><strong>Valor:</strong> {{ selectedPlayer.value_eur | currency:'EUR' }}</p>
-<p><strong>Salario:</strong> {{ selectedPlayer.wage_eur | currency:'EUR' }}</p>
-<p><strong>Edad:</strong> {{ selectedPlayer.age }}</p>
-<p><strong>Altura:</strong> {{ selectedPlayer.height_cm }} cm</p>
-<p><strong>Peso:</strong> {{ selectedPlayer.weight_kg }} kg</p>
-<p><strong>Pierna Preferida:</strong> {{ selectedPlayer.preferred_foot }}</p>
-<p><strong>Pierna Débil:</strong> {{ selectedPlayer.weak_foot }}</p>
-<p><strong>Habilidad de Movimientos:</strong> {{ selectedPlayer.skill_moves }}</p>
-<p><strong>Reputación Internacional:</strong> {{ selectedPlayer.international_reputation }}</p>
-<p><strong>Rendimiento:</strong> {{ selectedPlayer.work_rate }}</p>
-<p><strong>Tipo de Cuerpo:</strong> {{ selectedPlayer.body_type }}</p>
+    <p><strong>Velocidad:</strong> {{ selectedPlayer.pace }}</p>
+    <p><strong>Disparo:</strong> {{ selectedPlayer.shooting }}</p>
+    <p><strong>Pase:</strong> {{ selectedPlayer.passing }}</p>
+    <p><strong>Dribbling:</strong> {{ selectedPlayer.dribbling }}</p>
+    <p><strong>Defensa:</strong> {{ selectedPlayer.defending }}</p>
+    <p><strong>Físico:</strong> {{ selectedPlayer.physic }}</p>
 
-<p><strong>Velocidad:</strong> {{ selectedPlayer.pace }}</p>
-<p><strong>Disparo:</strong> {{ selectedPlayer.shooting }}</p>
-<p><strong>Pase:</strong> {{ selectedPlayer.passing }}</p>
-<p><strong>Dribbling:</strong> {{ selectedPlayer.dribbling }}</p>
-<p><strong>Defensa:</strong> {{ selectedPlayer.defending }}</p>
-<p><strong>Físico:</strong> {{ selectedPlayer.physic }}</p>
-
-  
-  <!-- Botón de edición -->
-  <button (click)="editPlayer(selectedPlayer.id)">Editar</button>
-  
-</div>
+    <!-- Botón de edición -->
+    <button (click)="editPlayer(selectedPlayer.id)">Editar</button>
+  </div>
 
 </div>
-
 

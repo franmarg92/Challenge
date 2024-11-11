@@ -7,11 +7,16 @@ const router = express.Router();
 
 // Obtener todos los jugadores con paginación y filtrado
 router.get('/', async (req, res) => {
-    const limit = parseInt(req.query.limit) || 16; // Número de resultados por página
-    const page = parseInt(req.query.page) || 1; // Número de la página actual
+    const limit = parseInt(req.query.limit) || 16; // Número de resultados por página (por defecto 16)
+    const page = parseInt(req.query.page) || 1; // Página actual (por defecto 1)
     const { name, club, position } = req.query; // Filtros de búsqueda
 
     try {
+        // Si el valor de page no es un número válido, se asigna a 1
+        if (isNaN(page) || page < 1) {
+            return res.status(400).json({ error: 'El número de página debe ser un número válido y mayor que 0' });
+        }
+
         const offset = (page - 1) * limit; // Calcular el desplazamiento
 
         // Condiciones para el filtrado
@@ -26,6 +31,8 @@ router.get('/', async (req, res) => {
             whereClause.player_positions = { [Op.like]: `%${position}%` };
         }
 
+        console.log('whereClause:', whereClause); // Verifica la estructura de los filtros
+
         // Búsqueda con filtros y paginación
         const players = await Player.findAll({
             where: whereClause,
@@ -33,10 +40,17 @@ router.get('/', async (req, res) => {
             offset: offset,
         });
 
+        console.log('players:', players); // Verifica los resultados obtenidos
+
+        // Verificar si no hay resultados
+        if (players.length === 0) {
+            return res.status(404).json({ error: 'No se encontraron jugadores con los criterios proporcionados' });
+        }
+
         res.json(players);
     } catch (error) {
         console.error(error); // Registrar el error
-        res.status(500).json({ error: 'Error al obtener los jugadores' });
+        res.status(500).json({ error: 'Error al obtener los jugadores', details: error.message });
     }
 });
 
@@ -56,7 +70,7 @@ router.get('/:id', async (req, res) => {
         }
     } catch (error) {
         console.error(error); // Registrar el error
-        res.status(500).json({ error: 'Error al obtener el jugador' });
+        res.status(500).json({ error: 'Error al obtener el jugador', details: error.message });
     }
 });
 
@@ -74,34 +88,11 @@ router.put('/:id', async (req, res) => {
         }
     } catch (error) {
         console.error(error); // Registrar el error
-        res.status(500).json({ error: 'Error al actualizar el jugador' });
+        res.status(500).json({ error: 'Error al actualizar el jugador', details: error.message });
     }
 });
 
-// Crear un nuevo jugador con validación
-/* router.post(
-    '/',
-    [
-        check('long_name').notEmpty().withMessage('El nombre del jugador es requerido'),
-        check('overall').isInt({ min: 0, max: 100 }).withMessage('El overall debe ser un número entre 0 y 100'),
-        // Agrega más validaciones según sea necesario
-    ],
-    async (req, res) => {
-        const errors = validationResult(req); // Validar datos
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() }); // Devolver errores
-        }
 
-        try {
-            const player = await Player.create(req.body);
-            res.status(201).json(player);
-        } catch (error) {
-            console.error(error); // Registrar el error
-            res.status(500).json({ error: 'Error al crear el jugador' });
-        }
-    }
-);
- */
 
 router.post('/create', async (req, res) => {
     try {
@@ -131,7 +122,8 @@ router.post('/create', async (req, res) => {
             passing,
             dribbling,
             defending,
-            physic
+            physic,
+            gender
         } = req.body;
 
         // Crear el nuevo jugador
@@ -161,15 +153,15 @@ router.post('/create', async (req, res) => {
             passing,
             dribbling,
             defending,
-            physic
+            physic,
+            gender
         });
 
         res.status(201).json({ message: 'Jugador creado exitosamente', player: newPlayer });
     } catch (error) {
         console.error(error); // Imprimir el error en la consola
-        res.status(500).json({ message: 'Error al crear el jugador', error });
+        res.status(500).json({ message: 'Error al crear el jugador', error: error.message });
     }
 });
-
 
 module.exports = router;

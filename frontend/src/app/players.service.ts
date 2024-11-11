@@ -10,36 +10,36 @@ export class PlayerService {
 
   constructor(private http: HttpClient) {}
 
-  getPlayers(limit: number = 16, page: number = 1): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}?limit=${limit}&page=${page}`);
+  // Método para obtener jugadores con filtros de club, posición y nombre
+  getPlayers(limit: number = 16, page: number = 1, club: string = '', position: string = '', name: string = ''): Observable<any[]> {
+    let params: any = {
+      limit: limit.toString(),
+      page: page.toString(),
+    };
+
+    if (club) {
+      params.club = club;
+    }
+    if (position) {
+      params.position = position;
+    }
+    if (name) {
+      params.name = name;
+    }
+
+    return this.http.get<any[]>(`${this.apiUrl}`, { params });
   }
 
- // Método para obtener un jugador por ID
- getPlayerById(id: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/${id}`);
-}
-
-// Método para obtener jugadores por equipo
-getPlayersByTeam(teamName: string): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}?team=${teamName}`);
-}
-
-// Método para obtener jugadores por nombre
-getPlayersByName(playerName: string): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}?name=${playerName}`);
-}
-
-
+  // Otros métodos...
+  getPlayerById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
 
   createPlayer(playerData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/create`, playerData);
   }
 
-
-
-updatePlayer(id: number, playerData: any): Observable<any> {
-  return this.http.put(`${this.apiUrl}/${id}`, playerData);
+  updatePlayer(id: number, playerData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, playerData);
+  }
 }
-}
-
-
