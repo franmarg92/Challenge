@@ -8,17 +8,17 @@ import { Observable } from 'rxjs';
 
 
 export class AuthService {
-  private apiUrl = 'http://localhost:3000'; // URL del backend
+  private apiUrl = 'http://localhost:3000'; 
 
   constructor(private http: HttpClient) {}
 
-  // Método de registro
+  
   register(username: string, email: string, password: string): Observable<any> {
     const body = { username, email, password };
     return this.http.post(`${this.apiUrl}/auth/register`, body);
   }
   
-  // Metodo de login 
+   
   login(email: string, password: string): Observable<any> {
     const body = { email, password };
     return this.http.post(`${this.apiUrl}/auth/login`, body);
