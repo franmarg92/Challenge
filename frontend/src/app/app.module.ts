@@ -13,6 +13,8 @@ import { PlayerDetailComponent } from './player-detail/player-detail.component';
 import { EditPlayerComponent } from './edit-player/edit-player.component'; 
 import { CreatePlayerComponent } from './create-player/create-player.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { HighchartsChartModule } from 'highcharts-angular';
+
 
 
 
@@ -33,7 +35,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgApexchartsModule  
+    NgApexchartsModule,
+    HighchartsChartModule
+    
    
      
   ],

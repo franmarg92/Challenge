@@ -3,7 +3,7 @@
   <input 
     type="text" 
     [(ngModel)]="searchTerm" 
-    (ngModelChange)="filteredPlayers = filterPlayers(players)" 
+    (ngModelChange)="onFilterChange()" 
     placeholder="Buscar jugadores..." 
   />
 </div>
@@ -11,7 +11,7 @@
 <!-- Filtro de Club -->
 <div class="filter">
   <label for="club">Filtrar por Club:</label>
-  <select id="club" [(ngModel)]="selectedClub" (change)="filteredPlayers = filterPlayers(players)">
+  <select id="club" [(ngModel)]="selectedClub" (change)="onFilterChange()">
     <option value="">Todos los Clubes</option>
     <option *ngFor="let club of clubs" [value]="club">{{ club }}</option>
   </select>
@@ -20,11 +20,13 @@
 <!-- Filtro de Posición -->
 <div class="filter">
   <label for="position">Filtrar por Posición:</label>
-  <select id="position" [(ngModel)]="selectedPosition" (change)="filteredPlayers = filterPlayers(players)">
+  <select id="position" [(ngModel)]="selectedPosition" (change)="onFilterChange()">
     <option value="">Todas las Posiciones</option>
     <option *ngFor="let position of positions" [value]="position">{{ position }}</option>
   </select>
 </div>
+
+
 
 <!-- Mensaje de carga -->
 <div *ngIf="loading" class="loading-message">Cargando jugadores...</div>

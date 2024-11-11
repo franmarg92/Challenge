@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PlayerService } from '../players.service'; // Asegúrate de tener este servicio
+import { PlayerService } from '../players.service'; 
+
 
 @Component({
   selector: 'app-player-detail',
@@ -13,8 +14,9 @@ import { PlayerService } from '../players.service'; // Asegúrate de tener este 
 export class PlayerDetailComponent {
 
   searchForm: FormGroup;
-  player: any; // Para almacenar los detalles del jugador
-  errorMessage: string = ''; // Para mostrar mensajes de error
+  player: any; 
+  errorMessage: string = ''; 
+Highcharts: any;
 
   constructor(private fb: FormBuilder, private playerService: PlayerService) {
     // Formulario para buscar jugador por ID
@@ -30,15 +32,20 @@ export class PlayerDetailComponent {
       this.playerService.getPlayerById(playerId).subscribe({
         next: (response) => {
           this.player = response;
-          this.errorMessage = ''; // Limpiar mensajes de error
+          this.errorMessage = ''; 
         },
         error: (error) => {
           console.error('Error al obtener el jugador:', error);
           this.errorMessage = 'No se pudo encontrar el jugador con ese ID';
-          this.player = null; // Limpiar detalles previos del jugador
+          this.player = null; 
         }
       });
     }
   }
 
+
+  
+
 }
+
+
