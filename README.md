@@ -9,7 +9,7 @@ La base de datos utilizada para este proyecto incluye información tanto de juga
 
 He subido la base de datos a Google Drive para facilitar el acceso. Puedes descargarla a través del siguiente enlace:
 
-[Descargar Base de Datos](<(https://drive.google.com/file/d/14UjZ4fwQMezP-tFtKF1_mCKPrJeBV6rD/view?usp=drive_link)>)
+[Descargar Base de Datos](<https://drive.google.com/file/d/14UjZ4fwQMezP-tFtKF1_mCKPrJeBV6rD/view?usp=drive_link>)
 
 ## Problemas Encontrados y Soluciones
 
